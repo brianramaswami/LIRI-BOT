@@ -1,1 +1,1 @@
-# LIRI-BOT
+# TriviaGame
