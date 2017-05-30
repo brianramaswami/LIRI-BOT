@@ -10,7 +10,20 @@
 <body>
 
     
-    <script src ="assets/javascript/keys.js"></script>
+<script src ="liri.js"></script>
+<script type="text/javascript">
+	var spotify = require("spotify");	
+	var songName = "Thriller";
+	spotify.search({ type: 'track', query: songName}, function(err, data) {
+	    if ( err ) {
+	        console.log('Error occurred: ' + err);
+	        return;
+	    }
+		
+		console.log(JSON.parse(data));
+	});
+
+</script>
 
 </body>
 </html>

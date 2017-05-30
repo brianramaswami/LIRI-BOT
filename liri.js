@@ -12,6 +12,22 @@ var spotify = require("spotify");				//NPM package for spotify
 var userCommand = process.argv[2];
 var title = process.argv[3];
 
+var nodeArgs = process.argv;
+// Create an empty variable for holding the movie name
+var movieName = "";
+// Loop through all the words in the node argument
+// And do a little for-loop magic to handle the inclusion of "+"s
+for (var i = 2; i < nodeArgs.length; i++) {
+  if (i > 2 && i < nodeArgs.length) {
+    movieName = movieName + "+" + nodeArgs[i];
+  }
+  else {
+    movieName += nodeArgs[i];
+  }
+}
+
+
+
 doNext(userCommand,title);
 
 function doNext(Command, Title){
@@ -40,14 +56,12 @@ function doNext(Command, Title){
 function fetchTwitter(){
 	var tweetsLength;
 
-	//From twitter's NPM documentation, grab the most recent tweets
+	
 	var params = {screen_name: 'BrianRamaswami'};
 	client.get('statuses/user_timeline', function(error, tweets, response) {
 		if(error) throw error;
 
-		//Loop through the number of tweets that were returned to get the number of tweets returned.
-		//If the number of tweets exceeds 20, make it 20.
-		//Then loop through the length of tweets and return the tweets date and text.
+
 		tweetsLength = 0;
 
 		for(var i=0; i<tweets.length; i++){
@@ -100,10 +114,11 @@ function fetchSpotify(song){
 	        console.log('Error occurred: ' + err);
 	        return;
 	    }
-      console.log(data);
-
+		// console.log(data.tracks[0]);
 	    var matchedTracks = [];
 	    var dataItems = data.tracks.items;
+		console.log(JSON.parse(dataItems));
+		console.log(JSON.parse(data));
 
 	    for (var i=0; i<20; i++){
 	    	if (data.tracks.items[i].name == songName){
